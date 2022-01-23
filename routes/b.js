@@ -28,10 +28,10 @@ const urls = [
     {"url": "https://www.capitalfm.co.ke/business/","ct": "business","src": "capital-fm"},
     {"url": "https://www.the-star.co.ke/counties/","ct": "regional","src": "the-star"},
     {"url": "https://www.standardmedia.co.ke/category/1/counties","ct":"regional","src": "the-standard"},
-    {"url": "https://www.the-star.co.ke/news/africa/","ct": "africa","src": "the-star"},
-    {"url": "https://www.the-star.co.ke/news/world/","ct": "world","src": "the-star"},
+    {"url": "https://www.the-star.co.ke/news/africa/","ct": "international","src": "the-star"},
+    {"url": "https://www.the-star.co.ke/news/world/","ct": "international","src": "the-star"},
+    {"url": "https://www.capitalfm.co.ke/news/section/world/","ct": "international", "src": "capital-fm"},
     {"url": "https://www.the-star.co.ke/sasa/","ct": "gossip","src": "the-star"},
-    {"url": "https://www.standardmedia.co.ke/entertainment/","ct": "gossip","src": "the-standard"},
     {"url": "http://www.ghafla.com/ke/category/entertainment/","ct": "gossip","src": "ghafla"},
     {"url": "https://mpasho.co.ke/","ct":"gossip","src": "mpasho"},
     {"url": "https://kbc.co.ke/lifestyle/","ct": "gossip","src": "kbc"},
@@ -44,33 +44,47 @@ const urls = [
 ]   
 
 const start = new Date().getTime();
-urls.forEach(function(e){
-    var n;
-    if(e.src === "the-star"){
-        n = star.stories(e.url);
-    }else if(e.src === "the-standard"){
-        n = standard.stories(e.url);
-    }else if(e.src === "capital-fm"){
-        n = capital.stories(e.url);
-    }else if(e.src === "kbc"){
-        n = kbc.stories(e.url);
-    }else if(e.src === "pd"){
-        n = pd.stories(e.url);
-    }else if(e.src === "mpasho"){
-        n = mpasho.stories(e.url);
-    }else if(e.src === "ghafla"){
-        n = ghafla.stories(e.url);
-    }else{
-        n = kens.stories(e.url);
+
+function rep(){
+    setTimeout(function(){
+        rep();
+    },1800000); // Run every thirty minutes
+    try{
+        urls.forEach(function(e){
+            var n;
+            if(e.src === "the-star"){
+                n = star.stories(e.url);
+            }else if(e.src === "the-standard"){
+                n = standard.stories(e.url);
+            }else if(e.src === "capital-fm"){
+                n = capital.stories(e.url);
+            }else if(e.src === "kbc"){
+                n = kbc.stories(e.url);
+            }else if(e.src === "pd"){
+                n = pd.stories(e.url);
+            }else if(e.src === "mpasho"){
+                n = mpasho.stories(e.url);
+            }else if(e.src === "ghafla"){
+                n = ghafla.stories(e.url);
+            }else{
+                n = kens.stories(e.url);
+            }
+            n.ct = e.ct;
+            news.push(n);
+        })
+    }catch(e){
+        console.error(e)
     }
-    n.ct = e.ct;
-    news.push(n);
-})
+    fs.writeFileSync(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
+        console.log(err);
+    })
+    
+    const en = new Date().getTime();
+    var t = en-start+'ms';
+    
+    fs.appendFileSync(path.join(dir,'/public/t.log'),t,(err)=>{
+        console.log(err);
+    })    
+}
 
-fs.writeFileSync(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
-    console.log(err);
-})
-
-const en = new Date().getTime();
-console.log(en-start+'ms');
-
+rep();
