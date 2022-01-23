@@ -1,11 +1,9 @@
 get = require('sync-request')
 const parser = require('htmlparser2');
 const cheerio = require('cheerio');
-const the_star = 'https://www.pd.co.ke/'
-
 
 module.exports.stories = function(url){
-    var res = get('GET', the_star+url);
+    var res = get('GET', url);
     doc = parser.parseDocument(res.getBody()); // Parse document
     const $ = cheerio.load(doc);
     var t = $('.card.rounded-0.border-0')[0];
