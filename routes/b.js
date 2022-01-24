@@ -9,8 +9,7 @@ const capital = require('./capital');
 var path = require('path');
 var dir = require('../d');
 const fs = require('fs');
-var news = [];
-
+const { setTimeout } = require('timers/promises');
 
 const urls = [
     {"url": "https://www.the-star.co.ke/news/","ct": "news","src": "the-star"},
@@ -46,10 +45,11 @@ const urls = [
 const start = new Date().getTime();
 
 function rep(){
-    setTimeout(function(){
-        rep();
-    },1800000); // Run every thirty minutes
     try{
+        var news = [];
+        setTimeout(function(){
+            rep();
+        },1800000); // Run every thirty minutes
         urls.forEach(function(e){
             var n;
             if(e.src === "the-star"){
@@ -74,17 +74,24 @@ function rep(){
         })
     }catch(e){
         console.error(e)
+        setTimeout(function(){
+            rep();
+        },15000)
     }
-    fs.writeFileSync(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
+    fs.writeFile(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
         console.log(err);
     })
     
     const en = new Date().getTime();
     var t = en-start+'ms';
     
-    fs.appendFileSync(path.join(dir,'/public/t.log'),t,(err)=>{
+    fs.appendFile(path.join(dir,'/public/t.log'),t,(err)=>{
         console.log(err);
     })    
 }
 
-rep();
+try{
+    rep();   
+}catch(e){
+    console.error(e)
+}
