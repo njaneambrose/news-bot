@@ -49,7 +49,7 @@ function rep(){
         var news = [];
         setTimeout(function(){
             rep();
-        },1800000); // Run every thirty minutes
+        },1200000); // Run every 20 minutes
         urls.forEach(function(e){
             var n;
             if(e.src === "the-star"){
@@ -83,7 +83,7 @@ function rep(){
     })
     
     const en = new Date().getTime();
-    var t = en-start+'ms';
+    var t = `Run at ${new Date()} crawling took ${en-start}ms\n`;
     
     fs.appendFile(path.join(dir,'/public/t.log'),t,(err)=>{
         console.log(err);
