@@ -47,9 +47,6 @@ const start = new Date().getTime();
 function rep(){
     try{
         var news = [];
-        setTimeout(function(){
-            rep();
-        },1200000); // Run every 20 minutes
         urls.forEach(function(e){
             var n;
             if(e.src === "the-star"){
@@ -74,9 +71,6 @@ function rep(){
         })
     }catch(e){
         console.error(e)
-        setTimeout(function(){
-            rep();
-        },15000)
     }
     fs.writeFile(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
         console.log(err);
@@ -90,8 +84,4 @@ function rep(){
     })    
 }
 
-try{
-    rep();   
-}catch(e){
-    console.error(e)
-}
+module.exports.crawl = rep;
