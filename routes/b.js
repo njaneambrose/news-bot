@@ -72,14 +72,14 @@ function rep(){
     }catch(e){
         console.error(e)
     }
-    fs.writeFile(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
+    fs.writeFileSync(path.join(dir,'/public/news.json'),JSON.stringify(news),function(err){
         console.log(err);
     })
     
     const en = new Date().getTime();
     var t = `Run at ${new Date()} crawling took ${en-start}ms\n`;
     
-    fs.appendFile(path.join(dir,'/public/t.log'),t,(err)=>{
+    fs.appendFileSync(path.join(dir,'/public/t.log'),t,(err)=>{
         console.log(err);
     })    
 }
