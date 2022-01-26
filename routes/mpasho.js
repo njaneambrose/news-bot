@@ -12,6 +12,6 @@ module.exports.stories = function(url){
     "url": 'https://mpasho.co.ke'+$('.col-lg-5 .default-article.featured a').attr('href'),
     "desp": $('.col-lg-5 .default-article.featured a').attr('title'),
     "img": $('.col-lg-5 .default-article.featured a span.image-loader-image').data('background-image'),
-    "source": "Mpasho"}
+    "src": "Mpasho","home": "https://www.mpasho.co.ke/"}
     return a1
 }

@@ -12,6 +12,6 @@ module.exports.stories = function(url){
     var b = $('.mb-0.card h3').text();
     var c = $('.mb-0.card img.first-img').data('src');
     var d = $('.mb-0.card .card-body p.card-text').text();
-    s = {"title": b,"img": c,"url": a,"desp": d,"source": "The Standard"}
+    s = {"title": b,"img": c,"url": a,"desp": d,"src": "The Standard","home": "https://www.standardmedia.co.ke/"}
     return s;
 }

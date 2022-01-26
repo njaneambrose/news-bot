@@ -14,6 +14,6 @@ module.exports.stories = function(url){
         "url": $(t).find('div.zox-art-title a').attr('href'),
         "desp": $(t).find('p.zox-s-graph').text(),
         "img": $(t).find('img.zox-mob-img').attr('src'),
-        "source": "Capital FM"}
+        "src": "Capital FM","home": "https://www.capitalfm.co.ke/"}
     return a1;
 }

@@ -10,9 +10,9 @@ module.exports.stories = function(url){
 
     var a1 ={
         "title":$(t).find('h2 a').text(),
-        "url": 'https://kenyans.co.ke'+$(t).find('h2 a').attr('href'),
+        "url": 'https://www.kenyans.co.ke'+$(t).find('h2 a').attr('href'),
         "desp": $(t).find('.news-body').text(),
-        "img": 'https://kenyans.co.ke'+$(t).find('img.b-lazy').data('src'),
-        "source": "kenyans"}
+        "img": 'https://www.kenyans.co.ke'+$(t).find('img.b-lazy').data('src'),
+        "src": "Kenyans","home": "https://www.kenyans.co.ke/"}
     return a1
 }
